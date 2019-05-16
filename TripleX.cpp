@@ -29,7 +29,7 @@ void PrintIntro(int Difficulty)
     }
 }
 
-bool PlayGame(int Difficulty)
+bool PlayGame(int Difficulty, int Attempts)
 {
     const int CodeA = rand() % Difficulty + Difficulty;
     const int CodeB = rand() % Difficulty + Difficulty;
@@ -58,6 +58,7 @@ bool PlayGame(int Difficulty)
     else 
     {
         std::cout <<"\n++ Access Denied\n";
+        std::cout <<"++ WARNING! You have " << Attempts - 1 << " remaining attempt(s) before detonation\n";
         return false;
     }
 }
@@ -66,12 +67,14 @@ int main()
 {
     LoadASCIIArt();
     srand(time(NULL)); // Creates new random sequence based on time of day
+
     int LevelDifficulty = 1;
-    const int MaxDifficulty = 10;
+    int Attempts = 5;
+    const int MaxDifficulty = 5;
 
     while(LevelDifficulty <= MaxDifficulty)
     {
-        bool bLevelComplete = PlayGame(LevelDifficulty);
+        bool bLevelComplete = PlayGame(LevelDifficulty, Attempts);
         std::cin.clear(); // Clears any errors
         std::cin.ignore(); // Discards the buffer
 
@@ -79,9 +82,20 @@ int main()
         {
             ++LevelDifficulty;
         }
+        else 
+        {
+            --Attempts;
+        }
+
+        if(Attempts == 0)
+        {
+            std::cout << "\nThe warhead detonated and you were burned to a crisp!";
+            return 0;
+        }
     }
 
-    std::cout << "\nAll security layers bypassed. Override accepted. Nuclear warhead disarmed.";
+    std::cout << "\nAll security layers bypassed. Warhead was disarmed.\n";
+    std::cout << "Congrats Agent, just another walk in the park.";
 
     return 0;
 }
