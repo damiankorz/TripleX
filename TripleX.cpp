@@ -63,14 +63,50 @@ bool PlayGame(int Difficulty, int Attempts)
     }
 }
 
+int SetGameDifficulty()
+{
+    std::cout << "Please select difficulty\n";
+    std::cout << "++ 1 - Easy\n";
+    std::cout << "++ 2 - Normal\n";
+    std::cout << "++ 3 - Hard\n\n";
+
+    int GameDifficulty;
+
+    std::cin >> GameDifficulty;
+
+    return GameDifficulty;
+}
+
 int main()
 {
     LoadASCIIArt();
     srand(time(NULL)); // Creates new random sequence based on time of day
 
+    int GameDifficulty = SetGameDifficulty();
     int LevelDifficulty = 1;
-    int Attempts = 5;
-    const int MaxDifficulty = 5;
+    int Attempts, Difficulty;
+
+    switch(GameDifficulty)
+    {
+        case 1: 
+            Attempts = 8;
+            Difficulty = 3;
+            break;
+        case 2:
+            Attempts = 5;
+            Difficulty = 5;
+            break;
+        case 3: 
+            Attempts = 3;
+            Difficulty = 8;
+            break;
+        default:
+            Attempts = 5;
+            Difficulty = 5;
+            break;
+    }
+    
+    const int MaxDifficulty = Difficulty;
 
     while(LevelDifficulty <= MaxDifficulty)
     {
@@ -89,13 +125,13 @@ int main()
 
         if(Attempts == 0)
         {
-            std::cout << "\nThe warhead detonated and you were burned to a crisp!";
+            std::cout << "\nThe warhead detonated and you were burned to a crisp!\n";
             return 0;
         }
     }
 
     std::cout << "\nAll security layers bypassed. Warhead was disarmed.\n";
-    std::cout << "Congrats Agent, just another walk in the park.";
+    std::cout << "Congrats Agent, just another walk in the park.\n";
 
     return 0;
 }
