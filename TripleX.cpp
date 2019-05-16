@@ -126,6 +126,7 @@ int main()
         if(Attempts == 0)
         {
             std::cout << "\nThe warhead detonated and you were burned to a crisp!\n";
+            std::getchar();
             return 0;
         }
     }
@@ -133,5 +134,6 @@ int main()
     std::cout << "\nSecurity protocal override initiated. Warhead disarmed.\n";
     std::cout << "Congrats Agent, just another walk in the park.\n";
 
+    std::getchar();
     return 0;
 }
