@@ -1,38 +1,46 @@
 #include <iostream>
+#include <ctime>
 
 void LoadASCIIArt() 
 {
     std::cout << " ___      ___ ___      ___ ___    ____ _________ ___        ___\n";
     std::cout << "|   \\    |   |   |    |   |   |  /   /|         |   \\      /   |\n";
-    std::cout << "|    \\   |   |   |    |   |   | /   / |   ______|    \\    /    |\n";
-    std::cout << "|     \\  |   |   |    |   |   |/   /  |  |      |     \\  /     |\n";
-    std::cout << "|      \\ |   |   |    |   |       /   |  |______|      \\/      |\n";
+    std::cout << "|    \\   |   |   |    |   |   | /   / |    _____|    \\    /    |\n";
+    std::cout << "|     \\  |   |   |    |   |   |/   /  |   |     |     \\  /     |\n";
+    std::cout << "|      \\ |   |   |    |   |       /   |   |_____|      \\/      |\n";
     std::cout << "|       \\|   |   |    |   |      /    |         |              |\n";
-    std::cout << "|   |\\       |   |    |   |      \\    |   ______|   |\\    /|   |\n";
-    std::cout << "|   | \\      |   |    |   |       \\   |  |      |   | \\  / |   |\n";
-    std::cout << "|   |  \\     |   |____|   |   |\\   \\  |  |______|   |  \\/  |   |\n";
+    std::cout << "|   |\\       |   |    |   |      \\    |    _____|   |\\    /|   |\n";
+    std::cout << "|   | \\      |   |    |   |       \\   |   |     |   | \\  / |   |\n";
+    std::cout << "|   |  \\     |   |____|   |   |\\   \\  |   |_____|   |  \\/  |   |\n";
     std::cout << "|   |   \\    |            |   | \\   \\ |         |   |      |   |\n";
     std::cout << "|___|    \\___|____________|___|  \\___\\|_________|___|      |___|\n\n";
 }
 
 void PrintIntro(int Difficulty)
 {
-    std::cout << "You are a clandestine operative tasked with disarming a nuclear warhead by bypassing a level " << Difficulty << " security layer...\n";
-    std::cout << "You must bypass each security layer by entering the correct codes...\n\n";
+    if(Difficulty == 1)
+    {
+        std::cout << "\nYou are a clandestine operative tasked with disarming a nuclear warhead by bypassing a level " << Difficulty << " security layer...\n";
+        std::cout << "You must bypass each security layer by entering the correct codes...\n\n";
+    }
+    else
+    {
+        std::cout << "\nBypass level " << Difficulty << " security...\n";
+    }
 }
 
 bool PlayGame(int Difficulty)
 {
-    const int CodeA = 4;
-    const int CodeB = 3;
-    const int CodeC = 2;
+    const int CodeA = rand() % Difficulty + Difficulty;
+    const int CodeB = rand() % Difficulty + Difficulty;
+    const int CodeC = rand() % Difficulty + Difficulty;
 
     const int CodeSum = CodeA + CodeB + CodeC;
     const int CodeProduct = CodeA * CodeB * CodeC;
 
     PrintIntro(Difficulty);
 
-    std::cout << "+ There are 3 numbers in the code\n";
+    std::cout << "\n+ There are 3 numbers in the code\n";
     std::cout << "+ The code adds up to " << CodeSum << "\n";
     std::cout << "+ The product of the code is " << CodeProduct << "\n\n";
 
@@ -44,12 +52,12 @@ bool PlayGame(int Difficulty)
 
     if(GuessSum == CodeSum && GuessProduct == CodeProduct)
     {
-        std::cout << "\nSecurity layer bypassed\n";
+        std::cout << "\n++ Security layer " << Difficulty  << " bypassed\n";
         return true;
     }
     else 
     {
-        std::cout <<"\nAccess Denied\n";
+        std::cout <<"\n++ Access Denied\n";
         return false;
     }
 }
@@ -57,6 +65,7 @@ bool PlayGame(int Difficulty)
 int main()
 {
     LoadASCIIArt();
+    srand(time(NULL)); // Creates new random sequence based on time of day
     int LevelDifficulty = 1;
     const int MaxDifficulty = 10;
 
@@ -71,6 +80,8 @@ int main()
             ++LevelDifficulty;
         }
     }
+
+    std::cout << "\nAll security layers bypassed. Override accepted. Nuclear warhead disarmed.";
 
     return 0;
 }
