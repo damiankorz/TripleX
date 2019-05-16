@@ -16,29 +16,29 @@ void LoadASCIIArt()
     std::cout << "|___|    \\___|____________|___|  \\___\\|_________|___|      |___|\n\n";
 }
 
-void PrintIntro(int Difficulty)
+void PrintIntro(int LevelDifficulty)
 {
-    if(Difficulty == 1)
+    if(LevelDifficulty == 1)
     {
-        std::cout << "\nYou are a clandestine operative tasked with disarming a nuclear warhead by bypassing a level " << Difficulty << " security layer...\n";
+        std::cout << "\nYou are a secret agent tasked with disarming a nuclear warhead by bypassing a level " << LevelDifficulty << " security layer...\n";
         std::cout << "You must bypass each security layer by entering the correct codes...\n\n";
     }
     else
     {
-        std::cout << "\nBypass level " << Difficulty << " security...\n";
+        std::cout << "\nBypass level " << LevelDifficulty << " security...\n";
     }
 }
 
-bool PlayGame(int Difficulty, int Attempts)
+bool PlayGame(int LevelDifficulty, int Attempts)
 {
-    const int CodeA = rand() % Difficulty + Difficulty;
-    const int CodeB = rand() % Difficulty + Difficulty;
-    const int CodeC = rand() % Difficulty + Difficulty;
+    const int CodeA = rand() % LevelDifficulty + LevelDifficulty;
+    const int CodeB = rand() % LevelDifficulty + LevelDifficulty;
+    const int CodeC = rand() % LevelDifficulty + LevelDifficulty;
 
     const int CodeSum = CodeA + CodeB + CodeC;
     const int CodeProduct = CodeA * CodeB * CodeC;
 
-    PrintIntro(Difficulty);
+    PrintIntro(LevelDifficulty);
 
     std::cout << "\n+ There are 3 numbers in the code\n";
     std::cout << "+ The code adds up to " << CodeSum << "\n";
@@ -52,7 +52,7 @@ bool PlayGame(int Difficulty, int Attempts)
 
     if(GuessSum == CodeSum && GuessProduct == CodeProduct)
     {
-        std::cout << "\n++ Security layer " << Difficulty  << " bypassed\n";
+        std::cout << "\n++ Security layer " << LevelDifficulty  << " bypassed\n";
         return true;
     }
     else 
@@ -65,7 +65,7 @@ bool PlayGame(int Difficulty, int Attempts)
 
 int SetGameDifficulty()
 {
-    std::cout << "Please select difficulty\n";
+    std::cout << "Please select difficulty\n\n";
     std::cout << "++ 1 - Easy\n";
     std::cout << "++ 2 - Normal\n";
     std::cout << "++ 3 - Hard\n\n";
@@ -130,7 +130,7 @@ int main()
         }
     }
 
-    std::cout << "\nAll security layers bypassed. Warhead was disarmed.\n";
+    std::cout << "\nSecurity protocal override initiated. Warhead disarmed.\n";
     std::cout << "Congrats Agent, just another walk in the park.\n";
 
     return 0;
